@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- css -->
+    <link rel="stylesheet" href="./style.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <a href="#"><h1 class="logo">Log in to get started</h1></a>
+        <a href="#"
+          ><img class="logo_img" src="./Borromean-cross.png" alt="logo"
+        /></a>
+        <div class="login">
+          <input type="text" placeholder="User" />
+          <input type="password" placeholder="PIN" />
+          <span><img src="./arrow.svg" alt="arrow_right" /></span>
+        </div>
+      </div>
+    </header>
+    <main>
+      <div class="main_top-section">
+        <div class="crt_balance">
+            <h2>Current Balance</h2>
+            <p>As of 02/04//2024</p>    
+        </div>
+        <p class="balance">0000€</p>
+      </div>
+      <div class="main_center-section">
+        <div class="left_part">
+            <div class="part">
+                <div class="part_inf">
+                    <p class="dep">2 Deposit</p>
+                    <p class="date">3 days ago</p>
+                </div>
+                <p class="part_bln">4 000 €</p>
+            </div>
+            <div class="part">
+                <div class="part_inf">
+                    <p class="dep">1 WITHDRAWAL</p>
+                    <p class="date">02/04/2024</p>
+                </div>
+                <p class="part_bln">-378€</p>
+            </div>
+        </div>
+        <div class="right_part">
+            <div class="box first_form">
+                <h2>Transfer Money</h2>
+                <form>
+                    <div>
+                        <input type="text">
+                        <p>Transfer to</p>
+                    </div>
+                    <div>
+                        <input type="number">
+                        <p>Amount</p>
+                    </div>
+                    <button><img src="./right-long-solid.svg" alt="arrow_right"></button>
+                </form>
+            </div>
+            <div class="box second_form">
+                <h2>Transfer Money</h2>
+                <form>
+                    <div>
+                        <input type="number">
+                        <p>Amount</p>
+                    </div>
+                    <button><img src="./right-long-solid.svg" alt="arrow_right"></button>
+                </form>
+            </div>
+            <div class="box third_form">
+                <h2>Close account</h2>
+                <form>
+                    <div>
+                        <input type="text">
+                        <p>Confirm User</p>
+                    </div>
+                    <div>
+                        <input type="number">
+                        <p>Confirm PIN</p>
+                    </div>
+                    <button><img src="./right-long-solid.svg" alt="arrow_right"></button>
+                </form>
+            </div>
+        </div>
+      </div>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
