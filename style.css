@@ -12,24 +12,24 @@ img {
     max-width: 100%;
     height: auto;
 }
-.container {
+.nav {
     padding:20px 40px;
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
-.container .logo {
+.nav .nav_title {
     color: #000;
 }
-.container .logo_img{
+.nav .logo_img{
     width: 100px;
 }
-.container .login {
+.nav .login {
     display: flex;
     align-items: center;
     column-gap: 20px;
 }
-.container .login input {
+.nav .login input {
     text-align: center;
     width: 150px;
     padding:20px;
@@ -38,68 +38,44 @@ img {
     outline: none;
     font-size: 18px;
 }
-.container .login img {
-    width: 80px;
+.nav .login .login__btn{
+    padding:8px 20px;
+    background-color: transparent;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    font-size: 30px;
+    cursor: pointer;
 }
 main {
-    padding: 30px 300px;
+    padding: 30px 200px;
 }
-.main_top-section{ 
+.balance_section{ 
     padding: 30px 0;
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
-.main_top-section .crt_balance h2 {
+.balance_section h2 {
     font-size: 30px;
     margin-bottom: 7px;
 }
-.main_top-section .crt_balance p {
+.balance_section p {
     font-size: 20px;
     color: #555;
 }
-.main_top-section .balance {
+.balance_section .balance__value {
     font-size: 60px;
     color: #000;
 }
-.main_center-section {
+.movements_section {
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
     column-gap: 30px;
 }
-.left_part {
-    width: 50%;
-    border-radius: 10px;
-    background-color: #fff;
-}
-.right_part {
-    width: 50%;
-}
-.part {
-    padding: 30px;
-    border-bottom: 1px solid #999;
-    display: flex;
-    align-items:center;
-    justify-content: space-between;
-}
-.part_inf {
-    display: flex;
-    align-items: center;
-    column-gap: 30px;
-}
-.part_inf .dep {
-    background-color: green;
-    color: #fff;
-    padding: 5px 15px;
-    border-radius: 50px;
-}
-.part_inf {
-    color: #555;
-    font-size: 18px;
-}
-.part .part_bln {
-    font-size: 24px;
+.movement_part {
+    width: 40%;
 }
 .box {
     padding: 30px;
@@ -110,7 +86,7 @@ main {
     font-size: 24px;
     margin-bottom: 20px;
 }
-.box form input {
+.box .form .form__inp {
     width: 150px;
     text-align: center;
     padding: 5px 15px;
@@ -119,10 +95,10 @@ main {
     outline: none;
     margin-bottom: 10px;
 }
-.box form p {
+.box .form .form__label {
     text-align: center;
 }
-.box form button {
+.box .form .form__btn{
     background-color: #fff;
     padding:0 10px;
     border-radius: 10px;
@@ -130,39 +106,116 @@ main {
     outline: none;
     cursor: pointer;
 }
-.box form img {
+.box .form img {
     width: 20px;
 }
-.first_form {
+.transfer_form {
     background-color: orange;
 }
-.first_form form {
+.transfer_form .form--transfer {
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
 }
-.first_form input {
+.transfer_form .form__inp {
     background-color: #FED981;
 }
-.second_form {
+.loan_form {
     background-color: #60C478;
 }
-.second_form form {
+.loan_form .form--loan {
     display: flex;
     align-items: flex-start;
     column-gap: 30px;
 }
-.second_form input {
+.loan_form .form__inp {
     background-color: #B0E3A8;
 }
-.third_form {
+.close_form {
     background-color: #F2405C;
-}
-.third_form form {
+}   
+.close_form .form--close {
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
 }
-.third_form input {
+.close_form .form__inp {
     background-color: #F9939E;
+}
+.notes_part {
+    width: 60%;
+    border-radius: 10px;
+    background-color: #fff;
+}
+
+.notes_row {
+    padding: 30px;
+    border-bottom: 1px solid #999;
+    display: flex;
+    align-items:center;
+    justify-content: space-between;
+}
+.notes {
+    display: flex;
+    align-items: center;
+    column-gap: 30px;
+}
+.notes .notes__type {
+    color: #fff;
+    padding: 5px 15px;
+    border-radius: 50px;
+}
+.notes .notes__type--deposit {
+    background-color: green;
+}
+.notes .notes__type--withdrawal {
+    background-color: red;
+}
+.notes {
+    color: #555;
+    font-size: 18px;
+}
+.notes_row .notes__value {
+    font-size: 24px;
+}
+/* summary sec */
+.summary_section {
+    padding: 30px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.summary {
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+}
+.summary_label {
+    font-size: 18px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+.summary_value {
+    font-size: 24px;
+    margin-right: 20px;
+}
+.summary_value--in,.summary_value--interest {
+    color: #66c873;
+}
+.summary_value--out {
+    color:#f5465d;
+}
+.sort_btn {
+    text-align: center;
+    background-color: transparent;
+    border: none;
+    font-size: 20px;
+    margin-left: 80px;
+    cursor: pointer;
+}
+.logout_timer {
+    font-size: 20px;
+}
+.timer {
+    font-weight: 600;
 }
