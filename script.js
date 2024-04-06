@@ -12,12 +12,45 @@
 //     console.log(`${idx}:${value}`);
 // }); 3 parametr oladi value,index va array o'zi
 // const newArr = movements.map(() => {}); forEac bilan bir xil yangi arrayni return qiladi.
-// const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+
+
+
+
+
+
+// con  st movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 // const newArr2 = movements.filter((a) => { /*boolena qiymat qaytaradi filterlab beradi.*/
 //     return a > 0;
 // });
 
+// const date1 = [5,2,4,1,15,8,3];
+// const date2 = [16,6,10,5,6,1,4];
+// const calcAverageHumanAge = (ages) => {
+//     const humanAge = ages.map((age) => age <= 2 ? 2 * age :16 + age *4)
+//     const adults = humanAge.filter((a) => a > 18)
+//     const average = adults.reduce((acc,cur) => {
+//         return acc + cur / adults.length;
+//     },0) 
+// }
+// calcAverageHumanAge(date1);
+// calcAverageHumanAge(date2);
+
+// const numbers = [1,2,3,4,5,6,7,8,9,10];
+// const filterednumber = numbers.filter((num) => num % 2 === 0);
+// console.log(filterednumber);
+// const newMapNumbers = numbers.map((n) => n * n);
+// console.log(newMapNumbers);
+// let sum= 0;
+// for (const number of numbers){
+//     sum = sum +number;
+// }
+// console.log(sum);
+// const newReduceNum = numbers.reduce((acc,num) => acc + num);
+// console.log(newReduceNum);
 // bankist App
+
+
+
 
 // data
 const account1 = {
@@ -93,6 +126,26 @@ const displayMovements = (movements) => {
 };
 
 displayMovements(account1.movements);
+
+const calcDisplayBalance = (movements) => {
+    const totalBalance = movements.reduce((acc,crvalue) => {
+        return acc + crvalue;
+    },0)
+    labelBalanceValue.textContent = `${totalBalance} €`;
+}
+calcDisplayBalance(account1.movements);
+
+
+const createUsernames = (accs) => {
+    accs.forEach((acc) => {
+      acc.username = acc.owner
+        .toLowerCase()
+        .split(' ')
+        .map((name) => name[0])
+        .join('');
+    });
+  };
+  createUsernames(accounts);
 
 
 
