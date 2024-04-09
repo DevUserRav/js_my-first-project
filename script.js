@@ -12,45 +12,13 @@
 //     console.log(`${idx}:${value}`);
 // }); 3 parametr oladi value,index va array o'zi
 // const newArr = movements.map(() => {}); forEac bilan bir xil yangi arrayni return qiladi.
-
-
-
-
-
-
-// con  st movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+// const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+// const found = movements.find((move) => move > 0)
 // const newArr2 = movements.filter((a) => { /*boolena qiymat qaytaradi filterlab beradi.*/
 //     return a > 0;
 // });
 
-// const date1 = [5,2,4,1,15,8,3];
-// const date2 = [16,6,10,5,6,1,4];
-// const calcAverageHumanAge = (ages) => {
-//     const humanAge = ages.map((age) => age <= 2 ? 2 * age :16 + age *4)
-//     const adults = humanAge.filter((a) => a > 18)
-//     const average = adults.reduce((acc,cur) => {
-//         return acc + cur / adults.length;
-//     },0) 
-// }
-// calcAverageHumanAge(date1);
-// calcAverageHumanAge(date2);
-
-// const numbers = [1,2,3,4,5,6,7,8,9,10];
-// const filterednumber = numbers.filter((num) => num % 2 === 0);
-// console.log(filterednumber);
-// const newMapNumbers = numbers.map((n) => n * n);
-// console.log(newMapNumbers);
-// let sum= 0;
-// for (const number of numbers){
-//     sum = sum +number;
-// }
-// console.log(sum);
-// const newReduceNum = numbers.reduce((acc,num) => acc + num);
-// console.log(newReduceNum);
 // bankist App
-
-
-
 
 // data
 const account1 = {
@@ -109,8 +77,11 @@ const inputLoanAmount = document.querySelector('.form__inp--loan--amount');
 const inputCloseUser = document.querySelector('.form__inp--user');
 const inputClosePin = document.querySelector('.form__inp--pin');
 
+containerApp.classList.add('hidden');
+
+// movements
 const displayMovements = (movements) => {
-    containerMovements.innerHTML = '';
+    containerMovements.innerHTML = '~';
     movements.forEach((move, index) => {
         const type = move > 0 ? 'deposit' : 'withdrawal';
         const html = `<div class="notes_row">
@@ -125,29 +96,66 @@ const displayMovements = (movements) => {
     });
 };
 
-displayMovements(account1.movements);
 
+// calc balance
 const calcDisplayBalance = (movements) => {
-    const totalBalance = movements.reduce((acc,crvalue) => {
-        return acc + crvalue;
-    },0)
+    const totalBalance = movements.reduce((acc, crvalue) => acc + crvalue , 0)
     labelBalanceValue.textContent = `${totalBalance} €`;
 }
-calcDisplayBalance(account1.movements);
 
 
+// Calc summary
+const calcDisplaySummary = (acc) => {
+    // total in
+    const incomes = acc.movements.filter((mov) => mov > 0).reduce((acc, cur) => acc + cur ,0);
+    // total out
+    const out = acc.movements.filter((mov) => mov < 0).reduce((acc, cur) => acc + cur ,0);
+    // total out
+    const interest = acc.movements
+    .filter((mov) => mov > 0)
+    .map((mov) => (mov * acc.interestRate) / 100)
+    .reduce((acc, cur) => acc + cur ,0);
+
+    labelSumIn.textContent = `${incomes} €`;
+    labelSumOut.textContent = `${Math.abs(out)} €`;
+    labelSumInterest.textContent = `${interest} €`;
+};
+
+// create username
 const createUsernames = (accs) => {
     accs.forEach((acc) => {
-      acc.username = acc.owner
-        .toLowerCase()
-        .split(' ')
-        .map((name) => name[0])
-        .join('');
+        acc.username = acc.owner
+            .toLowerCase()
+            .split(' ')
+            .map((name) => name[0])
+            .join('');
     });
-  };
-  createUsernames(accounts);
+};
+createUsernames(accounts);
 
+let currentAccount;
 
+btnLogin.addEventListener('click',(event) => {
+    event.preventDefault();
+    
+    currentAccount = accounts.find((acc) => acc.username === inputLoginUser.value);
+    
+    if(currentAccount?.pin === Number(inputLoginPin.value)){
+        welcome.textContent = `Welcome Back, ${currentAccount.owner.split(' ')[0]}`;
+        containerApp.classList.remove('hidden');
+
+        inputLoginUser.value = '';
+        inputLoginPin.value = '';
+
+        displayMovements(currentAccount.movements);
+
+        calcDisplayBalance(currentAccount.movements);
+
+        calcDisplaySummary(currentAccount);
+
+    }
+
+});
 
 
 

@@ -49,6 +49,7 @@ img {
 }
 main {
     padding: 30px 200px;
+    transition: 1s linear;
 }
 .balance_section{ 
     padding: 30px 0;
@@ -218,4 +219,8 @@ main {
 }
 .timer {
     font-weight: 600;
+}
+.hidden {
+    opacity: 0;
+    transition: 1s ease;
 }
