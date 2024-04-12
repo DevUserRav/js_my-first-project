@@ -45,8 +45,14 @@ const account4 = {
     interestRate: 1,
     pin: 4444,
 };
+const account5 = {
+    owner: 'Qarshiyev Suyun',
+    movements: [430, -1000, -700, 50, 90],
+    interestRate: 1,
+    pin: 5555,
+};
 
-const accounts = [account1, account2, account3, account4];
+const accounts = [account1, account2, account3, account4, account5];
 
 // Elements
 const welcome = document.querySelector('.nav_title');
@@ -98,23 +104,23 @@ const displayMovements = (movements) => {
 
 
 // calc balance
-const calcDisplayBalance = (movements) => {
-    const totalBalance = movements.reduce((acc, crvalue) => acc + crvalue , 0)
-    labelBalanceValue.textContent = `${totalBalance} €`;
+const calcDisplayBalance = (account) => {
+    account.balance = account.movements.reduce((acc, crvalue) => acc + crvalue, 0)
+    labelBalanceValue.textContent = `${account.balance} €`;
 }
 
 
 // Calc summary
 const calcDisplaySummary = (acc) => {
     // total in
-    const incomes = acc.movements.filter((mov) => mov > 0).reduce((acc, cur) => acc + cur ,0);
+    const incomes = acc.movements.filter((mov) => mov > 0).reduce((acc, cur) => acc + cur, 0);
     // total out
-    const out = acc.movements.filter((mov) => mov < 0).reduce((acc, cur) => acc + cur ,0);
+    const out = acc.movements.filter((mov) => mov < 0).reduce((acc, cur) => acc + cur, 0);
     // total out
     const interest = acc.movements
-    .filter((mov) => mov > 0)
-    .map((mov) => (mov * acc.interestRate) / 100)
-    .reduce((acc, cur) => acc + cur ,0);
+        .filter((mov) => mov > 0)
+        .map((mov) => (mov * acc.interestRate) / 100)
+        .reduce((acc, cur) => acc + cur, 0);
 
     labelSumIn.textContent = `${incomes} €`;
     labelSumOut.textContent = `${Math.abs(out)} €`;
@@ -133,30 +139,75 @@ const createUsernames = (accs) => {
 };
 createUsernames(accounts);
 
+const updateUi = (acc) => {
+    displayMovements(acc.movements);
+
+    calcDisplayBalance(acc);
+
+    calcDisplaySummary(acc);
+
+};
+
 let currentAccount;
 
-btnLogin.addEventListener('click',(event) => {
+btnLogin.addEventListener('click', (event) => {
     event.preventDefault();
-    
+
     currentAccount = accounts.find((acc) => acc.username === inputLoginUser.value);
-    
-    if(currentAccount?.pin === Number(inputLoginPin.value)){
+
+    if (currentAccount?.pin === Number(inputLoginPin.value)) {
         welcome.textContent = `Welcome Back, ${currentAccount.owner.split(' ')[0]}`;
         containerApp.classList.remove('hidden');
 
         inputLoginUser.value = '';
         inputLoginPin.value = '';
 
-        displayMovements(currentAccount.movements);
-
-        calcDisplayBalance(currentAccount.movements);
-
-        calcDisplaySummary(currentAccount);
-
-    }
+        updateUi(currentAccount);
+    };
 
 });
 
+btnTransfer.addEventListener('click', (evt) => {
+    evt.preventDefault();
 
+    const trsAmount = Number(inputTransferAmount.value);
+    const receivedAcc = accounts.find((acc) => acc.username === inputTransferTo.value);
 
+    inputTransferAmount.value = '';
+    inputTransferTo.value = '';
 
+    if (trsAmount > 0 && receivedAcc && currentAccount.balance > trsAmount && currentAccount.username !== receivedAcc?.username) {
+        currentAccount.movements.push(-trsAmount);
+        receivedAcc.movements.push(trsAmount); 
+    }
+
+    updateUi(currentAccount);
+});
+
+btnLoan.addEventListener('click', (evt) => {
+    evt.preventDefault();
+
+    const loanAmount = Number(inputLoanAmount.value);
+
+    if(loanAmount > 0 && currentAccount.movements.some((mov) => mov >= loanAmount * 0.1)){
+        currentAccount.movements.push(loanAmount);
+    }
+    inputLoanAmount.value = '';
+    updateUi(currentAccount);
+});
+
+btnClose.addEventListener('click',function (evt) {
+    evt.preventDefault();
+~
+    const index = accounts.findIndex((acc) => acc.username === inputCloseUser.value);
+
+    if (
+        currentAccount.username === inputCloseUser.value &&
+        currentAccount.pin === Number(inputClosePin.value)
+    ) {
+        containerApp.classList.add('hidden');
+        accounts.splice(index,1);
+    }
+    inputCloseUser.value = '';
+    inputClosePin.value = '';
+});
