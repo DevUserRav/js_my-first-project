@@ -285,6 +285,7 @@ btnLogin.addEventListener('click', (event) => {
             day:'numeric',
             month:'long',
             year:'numeric',
+            weekday: 'long',
         }
         labelDate.textContent = new Intl.DateTimeFormat('en-US',options).format(now);
         // console.log(navigator.language);
